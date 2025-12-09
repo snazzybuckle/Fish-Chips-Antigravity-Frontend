@@ -3,26 +3,22 @@ const Cart = {
     API_URL: (typeof CONFIG !== 'undefined' && CONFIG.API_URL) ? `${CONFIG.API_URL}/cart` : '/api/cart',
 
     async init() {
-        if (Auth.getToken()) {
-            await this.fetchRemoteCart();
-        } else {
-            // Guest mode: use local storage (optional fallback)
-            // For now we will just show empty cart if not logged in
-            // or we could keep the guest localStorage logic.
-            // Let's keep guest logic separate or just do nothing.
-            // If the user wants guest cart, we can keep the old logic too.
-            this.items = [];
-            this.updateUI();
-        }
+        // Always try to fetch remote cart. Backend handles 401 if not logged in.
+        await this.fetchRemoteCart();
     },
 
     async fetchRemoteCart() {
         try {
             const res = await fetch(this.API_URL, {
-                headers: { 'Authorization': `Bearer ${Auth.getToken()}` }
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include' // Send cookies
             });
             if (res.ok) {
                 this.items = await res.json();
+                this.updateUI();
+            } else if (res.status === 401) {
+                // Not logged in or session expired
+                this.items = [];
                 this.updateUI();
             }
         } catch (err) {
@@ -31,21 +27,23 @@ const Cart = {
     },
 
     async syncItem(product) {
-        if (!Auth.getToken()) {
-            alert('Please login to add items to basket');
-            location.href = 'login.html';
-            return;
-        }
-
+        // We rely on backend response. If 401, redirect to login.
         try {
-            await fetch(this.API_URL, {
+            const res = await fetch(this.API_URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${Auth.getToken()}`
                 },
+                credentials: 'include', // Send cookies
                 body: JSON.stringify(product)
             });
+
+            if (res.status === 401) {
+                alert('Please login to add items to basket');
+                location.href = 'login.html';
+                return;
+            }
+            
             await this.fetchRemoteCart(); // Refresh from source of truth
         } catch (err) {
             console.error('Failed to sync item:', err);
@@ -74,12 +72,10 @@ const Cart = {
     },
 
     async remove(id) {
-        if (!Auth.getToken()) return;
-
         try {
             await fetch(`${this.API_URL}/${id}`, {
                 method: 'DELETE',
-                headers: { 'Authorization': `Bearer ${Auth.getToken()}` }
+                credentials: 'include'
             });
             await this.fetchRemoteCart();
         } catch (err) {
@@ -88,12 +84,10 @@ const Cart = {
     },
 
     async clear() {
-        if (!Auth.getToken()) return;
-
         try {
             await fetch(this.API_URL, {
                 method: 'DELETE',
-                headers: { 'Authorization': `Bearer ${Auth.getToken()}` }
+                credentials: 'include'
             });
             this.items = [];
             this.updateUI();

@@ -6,7 +6,7 @@ const Auth = {
     async checkAuth() {
         try {
             console.log('Checking auth...');
-            const res = await fetch(`${API_URL}/me`);
+            const res = await fetch(`${API_URL}/me`, { credentials: 'include' });
             console.log('Check auth res:', res.status);
             if (res.ok) {
                 const data = await res.json();
@@ -35,6 +35,7 @@ const Auth = {
             const res = await fetch(`${API_URL}/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
                 body: JSON.stringify({ username, password })
             });
             
@@ -56,6 +57,7 @@ const Auth = {
             const res = await fetch(`${API_URL}/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
                 body: JSON.stringify({ username, password })
             });
 
@@ -79,7 +81,7 @@ const Auth = {
 
     async logout() {
         try {
-            await fetch(`${API_URL}/logout`, { method: 'POST' });
+            await fetch(`${API_URL}/logout`, { method: 'POST', credentials: 'include' });
         } catch (e) {
             console.error('Logout error', e);
         }
