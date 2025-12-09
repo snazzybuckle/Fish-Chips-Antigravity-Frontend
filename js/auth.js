@@ -83,8 +83,11 @@ const Auth = {
         } catch (e) {
             console.error('Logout error', e);
         }
+        // Clear local state immediately
+        this.user = null;
         localStorage.removeItem('fishnchips_username');
         localStorage.removeItem('fishnchips_token');
+        this.updateNav(); // Update UI before redirect
         location.href = 'login.html';
     },
 
