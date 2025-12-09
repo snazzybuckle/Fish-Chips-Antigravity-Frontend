@@ -7,7 +7,7 @@
     <title>Fish n Chips | Modern Coastal Dining</title>
     <meta name="description"
         content="Premium Fish and Chips in a modern chic setting. Freshly caught, perfectly battered.">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -30,6 +30,7 @@
                 <li><a href="index.html#home" class="nav-link">Home</a></li>
                 <li><a href="index.html#menu" class="nav-link">Menu</a></li>
                 <li><a href="about.html" class="nav-link">Our Story</a></li>
+                <li><a href="login.html" id="authLink" class="nav-link">Login</a></li>
                 <li><a href="contact.html" class="nav-link">Contact</a></li>
                 <li class="cart-btn-wrapper" id="cartBtn">
                     <i class="fas fa-shopping-basket"></i>
@@ -62,7 +63,7 @@
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-bg">
-            <img src="assets/hero.png" alt="Delicious Fish and Chips">
+            <img src="assets/imgs/hero.png" alt="Delicious Fish and Chips">
             <div class="overlay"></div>
         </div>
         <div class="container hero-content fade-in-up">
@@ -88,7 +89,7 @@
                 <!-- Item 1 -->
                 <div class="menu-card">
                     <div class="menu-img">
-                        <img src="assets/cod.png" alt="Signature Cod">
+                        <img src="assets/imgs/cod.png" alt="Signature Cod">
                     </div>
                     <div class="menu-info">
                         <div class="menu-header">
@@ -106,7 +107,7 @@
                 <!-- Item 2 -->
                 <div class="menu-card">
                     <div class="menu-img">
-                        <img src="assets/chips.png" alt="Triple Cooked Chips">
+                        <img src="assets/imgs/chips.png" alt="Triple Cooked Chips">
                     </div>
                     <div class="menu-info">
                         <div class="menu-header">
@@ -124,9 +125,8 @@
 
                 <!-- Item 3 -->
                 <div class="menu-card">
-                    <div class="menu-img"
-                        style="background: var(--bg-secondary); display: flex; align-items: center; justify-content: center;">
-                        <i class="fas fa-fish fa-3x text-gold"></i>
+                    <div class="menu-img">
+                        <img src="assets/imgs/haddock.png" alt="Haddock & Peas">
                     </div>
                     <div class="menu-info">
                         <div class="menu-header">
@@ -144,7 +144,7 @@
                 <!-- Item 4 -->
                 <div class="menu-card">
                     <div class="menu-img">
-                        <img src="assets/sausage.png" alt="Gourmet Sausage">
+                        <img src="assets/imgs/sausage.png" alt="Gourmet Sausage">
                     </div>
                     <div class="menu-info">
                         <div class="menu-header">
@@ -163,7 +163,7 @@
                 <!-- Item 5 -->
                 <div class="menu-card">
                     <div class="menu-img">
-                        <img src="assets/calamari.png" alt="Salt & Pepper Calamari">
+                        <img src="assets/imgs/calamari.png" alt="Salt & Pepper Calamari">
                     </div>
                     <div class="menu-info">
                         <div class="menu-header">
@@ -182,7 +182,7 @@
                 <!-- Item 6 -->
                 <div class="menu-card">
                     <div class="menu-img">
-                        <img src="assets/halloumi.png" alt="Halloumi Fries">
+                        <img src="assets/imgs/halloumi.png" alt="Halloumi Fries">
                     </div>
                     <div class="menu-info">
                         <div class="menu-header">
@@ -254,8 +254,11 @@
         </div>
     </footer>
 
-    <script src="cart.js"></script>
-    <script src="script.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/script.js"></script>
+
 </body>
 
 </html>
