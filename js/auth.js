@@ -47,8 +47,7 @@ const Auth = {
             return true;
         } catch (error) {
             console.error('Registration error:', error);
-            alert(error.message);
-            return false;
+            throw error; // Propagate to UI
         }
     },
 
@@ -74,8 +73,7 @@ const Auth = {
             return true;
         } catch (error) {
             console.error('Login error:', error);
-            alert(error.message);
-            return false;
+            throw error; // Propagate to UI
         }
     },
 
@@ -115,6 +113,26 @@ const Auth = {
 // Form listeners
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('Auth.js loaded');
+
+    // Password Toggle Logic
+    document.querySelectorAll('.toggle-password').forEach(icon => {
+        icon.addEventListener('click', () => {
+            const targetId = icon.getAttribute('data-target');
+            const input = document.getElementById(targetId);
+            if (!input) return;
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+    });
+
     await Auth.checkAuth();
     Auth.updateNav();
 
@@ -122,8 +140,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (loginForm) {
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            const errDiv = loginForm.querySelector('.error-message');
+            if (errDiv) { errDiv.style.display = 'none'; errDiv.textContent = ''; }
+
             const data = new FormData(loginForm);
-            await Auth.login(data.get('username'), data.get('password'));
+            try {
+                await Auth.login(data.get('username'), data.get('password'));
+            } catch (err) {
+                if (errDiv) {
+                    errDiv.style.display = 'block';
+                    errDiv.textContent = err.message;
+                } else {
+                    alert(err.message);
+                }
+            }
         });
     }
 
@@ -131,11 +161,35 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (signupForm) {
         signupForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            const errDiv = signupForm.querySelector('.error-message');
+            if (errDiv) { errDiv.style.display = 'none'; errDiv.textContent = ''; }
+
             const data = new FormData(signupForm);
-            const success = await Auth.register(data.get('username'), data.get('password'));
-            if (success) {
-                alert('Account created! Please log in.');
-                location.href = 'login.html';
+            const username = data.get('username');
+            const password = data.get('password');
+            const confirmPassword = data.get('confirmPassword');
+
+            if (password !== confirmPassword) {
+                 const errDiv = signupForm.querySelector('.error-message');
+                 if (errDiv) {
+                    errDiv.style.display = 'block';
+                    errDiv.textContent = 'Passwords do not match';
+                 }
+                 return;
+            }
+
+            try {
+                const success = await Auth.register(username, password);
+                if (success) {
+                    location.href = 'signup-success.html';
+                }
+            } catch (err) {
+                if (errDiv) {
+                    errDiv.style.display = 'block';
+                    errDiv.textContent = err.message;
+                } else {
+                    alert(err.message);
+                }
             }
         });
     }
