@@ -40,12 +40,14 @@ const Cart = {
 
             if (res.status === 401) {
                 this.showLoginToast('Please login to add items to basket');
-                return;
+                return false; // Indicate failure
             }
             
             await this.fetchRemoteCart(); // Refresh from source of truth
+            return true; // Indicate success
         } catch (err) {
             console.error('Failed to sync item:', err);
+            return false; // Indicate failure
         }
     },
 
@@ -54,8 +56,10 @@ const Cart = {
         const existing = this.items.find(p => p.id === product.id);
         const quantity = existing ? existing.quantity + 1 : 1;
         
-        await this.syncItem({ ...product, quantity });
-        this.showNotification(`Added ${product.name}`);
+        const success = await this.syncItem({ ...product, quantity });
+        if (success) {
+            this.showNotification(`Added ${product.name}`);
+        }
     },
 
     async updateQuantity(id, change) {
