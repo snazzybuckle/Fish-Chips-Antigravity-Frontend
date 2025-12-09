@@ -669,3 +669,75 @@ img {
         grid-template-columns: 1fr;
     }
 }
+
+/* Auth Pages */
+.auth-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding-top: 80px; /* Space for fixed navbar */
+}
+
+/* Reuse hero background pattern if desired, or simpler */
+.auth-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('../assets/imgs/hero.png') no-repeat center center/cover;
+    z-index: -1;
+}
+
+.auth-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.75); /* Dark overlay */
+    z-index: -1;
+}
+
+.auth-container {
+    background: var(--glass-bg);
+    padding: 3rem;
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    text-align: center;
+}
+
+.auth-container h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+.auth-container form {
+    text-align: left;
+}
+
+.auth-submit-btn {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.auth-footer {
+    margin-top: 2rem;
+    color: var(--text-secondary);
+}
+
+.auth-footer a {
+    color: var(--accent-gold);
+    font-weight: 600;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}

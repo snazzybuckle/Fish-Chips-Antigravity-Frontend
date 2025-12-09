@@ -2,17 +2,37 @@
 const API_URL = (typeof CONFIG !== 'undefined' && CONFIG.API_URL) ? `${CONFIG.API_URL}/auth` : '/api/auth';
 
 const Auth = {
-    getToken() {
-        return localStorage.getItem('fishnchips_token');
-    },
-
-    getCurrentUser() {
-        return localStorage.getItem('fishnchips_username');
+    // Check auth status with backend
+    async checkAuth() {
+        try {
+            console.log('Checking auth...');
+            const res = await fetch(`${API_URL}/me`);
+            console.log('Check auth res:', res.status);
+            if (res.ok) {
+                const data = await res.json();
+                console.log('Check auth data:', data);
+                if (data.authenticated) {
+                    this.user = data.username;
+                    localStorage.setItem('fishnchips_username', data.username); // Keep for UI reference/fast load
+                    this.updateNav();
+                    return true;
+                }
+            }
+        } catch (e) {
+            console.error('Auth check error:', e);
+        }
+        
+        // If failed
+        this.user = null;
+        localStorage.removeItem('fishnchips_username');
+        localStorage.removeItem('fishnchips_token'); // Clean up old token if exists
+        this.updateNav();
+        return false;
     },
 
     async register(username, password) {
         try {
-            const res = await fetch(`${API_URL}/auth/register`, {
+            const res = await fetch(`${API_URL}/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, password })
@@ -33,7 +53,7 @@ const Auth = {
 
     async login(username, password) {
         try {
-            const res = await fetch(`${API_URL}/auth/login`, {
+            const res = await fetch(`${API_URL}/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, password })
@@ -45,10 +65,9 @@ const Auth = {
             }
 
             const data = await res.json();
-            localStorage.setItem('fishnchips_token', data.token);
+            // Token is in HttpOnly cookie now
             localStorage.setItem('fishnchips_username', data.username);
             
-            // Reload page to update UI
             location.href = 'index.html';
             return true;
         } catch (error) {
@@ -58,17 +77,24 @@ const Auth = {
         }
     },
 
-    logout() {
-        localStorage.removeItem('fishnchips_token');
+    async logout() {
+        try {
+            await fetch(`${API_URL}/logout`, { method: 'POST' });
+        } catch (e) {
+            console.error('Logout error', e);
+        }
         localStorage.removeItem('fishnchips_username');
-        location.href = 'index.html';
+        localStorage.removeItem('fishnchips_token');
+        location.href = 'login.html';
     },
 
     updateNav() {
         const link = document.getElementById('authLink');
         if (!link) return;
         
-        const username = this.getCurrentUser();
+        // Fallback to localStorage for immediate render, validated by checkAuth async
+        const username = localStorage.getItem('fishnchips_username');
+        
         if (username) {
             link.textContent = `Logout (${username})`;
             link.href = '#';
@@ -85,7 +111,9 @@ const Auth = {
 };
 
 // Form listeners
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    console.log('Auth.js loaded');
+    await Auth.checkAuth();
     Auth.updateNav();
 
     const loginForm = document.getElementById('loginForm');

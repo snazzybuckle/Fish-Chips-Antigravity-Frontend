@@ -5,25 +5,113 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign Up – Fish n Chips</title>
+    <meta name="description" content="Create an account to order fresh fish and chips.">
     <link rel="stylesheet" href="styles/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">Fish <span class="text-gold">n</span> Chips</a>
+            <div class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html#home" class="nav-link">Home</a></li>
+                <li><a href="index.html#menu" class="nav-link">Menu</a></li>
+                <li><a href="about.html" class="nav-link">Our Story</a></li>
+                <li><a href="login.html" id="authLink" class="nav-link">Login</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li class="cart-btn-wrapper" id="cartBtn">
+                    <i class="fas fa-shopping-basket"></i>
+                    <span class="cart-count">0</span>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-header">
+            <h3>Your Basket</h3>
+            <div class="cart-close" id="cartClose">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+        <div class="cart-body" id="cartItems">
+            <!-- Items -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">£0.00</span>
+            </div>
+            <a href="checkout.html" class="btn btn-primary" style="width: 100%; text-align: center;">Checkout</a>
+        </div>
+    </div>
+
+    <!-- Auth Section -->
     <section class="auth-section">
-        <h2>Sign Up</h2>
-        <form id="signupForm">
-            <label>Username
-                <input type="text" name="username" required />
-            </label>
-            <label>Password
-                <input type="password" name="password" required />
-            </label>
-            <button type="submit" class="btn btn-primary">Create Account</button>
-        </form>
-        <p>Already have an account? <a href="login.html">Log in</a></p>
+        <div class="auth-container fade-in-section visible">
+            <h2>Join the Family</h2>
+            <form id="signupForm">
+                <div class="form-group">
+                    <label class="form-label">Choose Username</label>
+                    <input type="text" name="username" class="form-input" placeholder="e.g. fishlover99" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" name="password" class="form-input" placeholder="Create a strong password"
+                        required />
+                </div>
+                <!-- Future: Confirm Password, Email -->
+                <button type="submit" class="btn btn-primary auth-submit-btn">Create Account</button>
+            </form>
+            <div class="auth-footer">
+                <p>Already have an account? <a href="login.html">Log in</a></p>
+            </div>
+        </div>
     </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <h3>Fish <span class="text-gold">n</span> Chips</h3>
+                <p>Redefining the classic.</p>
+                <div class="socials">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-info">
+                <h4>Visit Us</h4>
+                <p>123 Seaside Avenue</p>
+                <p>Brighton, BN1 1AA</p>
+            </div>
+            <div class="footer-hours">
+                <h4>Opening Hours</h4>
+                <p>Mon - Sun: 11am - 10pm</p>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p>&copy; 2025 Fish n Chips. All rights reserved.</p>
+        </div>
+    </footer>
+
     <script src="js/config.js"></script>
     <script src="js/auth.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/script.js"></script>
 </body>
 
 </html>
