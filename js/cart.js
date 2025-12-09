@@ -39,8 +39,7 @@ const Cart = {
             });
 
             if (res.status === 401) {
-                alert('Please login to add items to basket');
-                location.href = 'login.html';
+                this.showLoginToast('Please login to add items to basket');
                 return;
             }
             
@@ -153,6 +152,26 @@ const Cart = {
             notification.classList.remove('show');
             setTimeout(() => notification.remove(), 300);
         }, 2000);
+    },
+
+    showLoginToast(message) {
+        // Create toast with login redirect
+        const toast = document.createElement('div');
+        toast.className = 'notification login-toast';
+        toast.innerHTML = `<i class="fas fa-lock" style="margin-right: 8px;"></i>${message}`;
+        toast.style.background = 'linear-gradient(135deg, #d4a373, #bc6c25)';
+        document.body.appendChild(toast);
+        toast.offsetHeight; // reflow
+        toast.classList.add('show');
+        
+        // Redirect after 1.5 seconds
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => {
+                toast.remove();
+                location.href = 'login.html';
+            }, 300);
+        }, 1500);
     }
 };
 
