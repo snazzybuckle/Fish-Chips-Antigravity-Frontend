@@ -15,7 +15,24 @@ const CONFIG = {
         }
 
         // 2. Production (Deployed site)
-        // Assume frontend and backend are on same origin
-        return '/api';
+        // IMPORTANT: Replace this with your actual Render backend Web Service URL
+        // Example: 'https://fish-chips-backend.onrender.com/api'
+        // For now, we'll use a placeholder that you MUST update after creating your backend service.
+        const PRODUCTION_BACKEND_URL = 'https://secure-login-page-backend.onrender.com/api';
+        
+        // If you want the frontend on the same origin as backend (single service), use '/api'
+        // If separate services, use the full URL above.
+        // Detect: if current host contains 'onrender.com' and path doesn't have '/api', use full URL
+        if (hostname.includes('onrender.com')) {
+            // Check if we are on the BACKEND service (which also serves frontend)
+            // or on a SEPARATE static frontend service
+            // If the backend serves frontend, relative path works. 
+            // If separate, we need the full backend URL.
+            // Safest: always use the full URL if we're on a static site.
+            return PRODUCTION_BACKEND_URL;
+        }
+
+        // Fallback for other production hosts (custom domain, etc.)
+        return PRODUCTION_BACKEND_URL;
     })()
 };
