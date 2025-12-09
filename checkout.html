@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | Fish n Chips</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" style="background: var(--bg-primary); position: relative;">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">Fish <span class="text-gold">n</span> Chips</a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Back to Menu</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Checkout Content -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 3rem;">
+                <h1 class="section-title">Secure <span class="text-gold">Checkout</span></h1>
+            </div>
+
+            <div class="checkout-grid">
+                <!-- Form -->
+                <div>
+                    <div
+                        style="background: var(--bg-secondary); padding: 2rem; border-radius: 16px; border: 1px solid var(--glass-border); margin-bottom: 2rem;">
+                        <h3 style="margin-bottom: 1.5rem;">Customer Details</h3>
+                        <form id="checkoutForm" onsubmit="handleCheckout(event)">
+                            <div class="form-group">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email Address</label>
+                                <input type="email" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Phone Number</label>
+                                <input type="tel" class="form-input" required>
+                            </div>
+
+                            <h3 style="margin-bottom: 1.5rem; margin-top: 2rem;">Payment Details</h3>
+                            <div class="form-group">
+                                <label class="form-label">Card Number</label>
+                                <input type="text" class="form-input" placeholder="0000 0000 0000 0000" required>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <div class="form-group">
+                                    <label class="form-label">Expiry</label>
+                                    <input type="text" class="form-input" placeholder="MM/YY" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">CVC</label>
+                                    <input type="text" class="form-input" placeholder="123" required>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Place
+                                Order</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Order Summary -->
+                <div>
+                    <div
+                        style="background: var(--bg-secondary); padding: 2rem; border-radius: 16px; border: 1px solid var(--glass-border); position: sticky; top: 2rem;">
+                        <h3 style="margin-bottom: 1.5rem;">Order Summary</h3>
+                        <div id="checkoutItems">
+                            <!-- Populated by JS -->
+                        </div>
+                        <div
+                            style="border-top: 1px solid var(--glass-border); margin-top: 1rem; padding-top: 1rem; display: flex; justify-content: space-between; font-weight: 700; font-size: 1.2rem;">
+                            <span>Total</span>
+                            <span id="checkoutTotal">£0.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="cart.js"></script>
+    <script>
+        // Load Cart Items for Checkout
+        document.addEventListener('DOMContentLoaded', () => {
+            const itemsContainer = document.getElementById('checkoutItems');
+            const totalElement = document.getElementById('checkoutTotal');
+
+            if (Cart.items.length === 0) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            itemsContainer.innerHTML = '';
+            Cart.items.forEach(item => {
+                const div = document.createElement('div');
+                div.style.display = 'flex';
+                div.style.justifyContent = 'space-between';
+                div.style.marginBottom = '1rem';
+                div.innerHTML = `
+                    <span>${item.quantity}x ${item.name}</span>
+                    <span>£${(item.price * item.quantity).toFixed(2)}</span>
+                `;
+                itemsContainer.appendChild(div);
+            });
+
+            totalElement.textContent = `£${Cart.getTotal().toFixed(2)}`;
+        });
+
+        function handleCheckout(e) {
+            e.preventDefault();
+            // Simulate processing
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.textContent;
+            btn.textContent = 'Processing...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                Cart.clear();
+                document.body.innerHTML = `
+                    <div style="height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--bg-primary); color: var(--text-primary); text-align: center; padding: 2rem;">
+                        <i class="fas fa-check-circle" style="font-size: 5rem; color: var(--accent-gold); margin-bottom: 2rem;"></i>
+                        <h1 style="font-family: var(--font-heading); margin-bottom: 1rem;">Order Confirmed!</h1>
+                        <p style="color: var(--text-secondary); margin-bottom: 2rem;">Thank you for your order. It will be ready in 20 minutes.</p>
+                        <a href="index.html" class="btn btn-primary">Back to Home</a>
+                    </div>
+                `;
+            }, 2000);
+        }
+    </script>
+</body>
+
+</html>

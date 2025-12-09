@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Story | Fish n Chips</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" style="background: var(--bg-primary); position: relative;">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">Fish <span class="text-gold">n</span> Chips</a>
+            <div class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html#home" class="nav-link">Home</a></li>
+                <li><a href="index.html#menu" class="nav-link">Menu</a></li>
+                <li><a href="about.html" class="nav-link active">Our Story</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li class="cart-btn-wrapper" id="cartBtn">
+                    <i class="fas fa-shopping-basket"></i>
+                    <span class="cart-count">0</span>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-header">
+            <h3>Your Basket</h3>
+            <div class="cart-close" id="cartClose">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+        <div class="cart-body" id="cartItems"></div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">£0.00</span>
+            </div>
+            <a href="checkout.html" class="btn btn-primary" style="width: 100%; text-align: center;">Checkout</a>
+        </div>
+    </div>
+
+    <!-- About Content -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 4rem;">
+                <h1 class="section-title">Our <span class="text-gold">Story</span></h1>
+                <p class="section-subtitle">From the coast to your plate.</p>
+            </div>
+
+            <div class="about-grid">
+                <div class="about-visual">
+                    <img src="assets/hero.png" alt="Our Kitchen"
+                        style="border-radius: 16px; height: 100%; object-fit: cover;">
+                </div>
+                <div class="about-text">
+                    <h2>A Modern <span class="text-gold">Classic</span></h2>
+                    <p>Founded in 2025, Fish n Chips was born from a desire to elevate the traditional British takeaway.
+                        We noticed that while the world was moving forward, the local chippy was stuck in the past.</p>
+                    <p>We source our fish from sustainable stocks in the North Atlantic, ensuring that we're not just
+                        feeding you today, but protecting the oceans for tomorrow. Our potatoes are grown less than 50
+                        miles away, supporting local farmers and reducing our carbon footprint.</p>
+                    <p>But it's not just about the ingredients. It's about the experience. We've stripped away the
+                        grease and the grime to create a dining experience that feels fresh, modern, and inviting.</p>
+                </div>
+            </div>
+
+            <div class="features-list"
+                style="margin-top: 4rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                <div class="text-center">
+                    <i class="fas fa-leaf fa-3x text-gold" style="margin-bottom: 1rem;"></i>
+                    <h3>Sustainable</h3>
+                    <p>MSC Certified fish only.</p>
+                </div>
+                <div class="text-center">
+                    <i class="fas fa-carrot fa-3x text-gold" style="margin-bottom: 1rem;"></i>
+                    <h3>Local</h3>
+                    <p>Potatoes from local farms.</p>
+                </div>
+                <div class="text-center">
+                    <i class="fas fa-heart fa-3x text-gold" style="margin-bottom: 1rem;"></i>
+                    <h3>Passion</h3>
+                    <p>Cooked with love, served with a smile.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <h3>Fish <span class="text-gold">n</span> Chips</h3>
+                <p>Redefining the classic.</p>
+                <div class="socials">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-info">
+                <h4>Visit Us</h4>
+                <p>123 Seaside Avenue</p>
+                <p>Brighton, BN1 1AA</p>
+            </div>
+            <div class="footer-hours">
+                <h4>Opening Hours</h4>
+                <p>Mon - Sun: 11am - 10pm</p>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p>&copy; 2025 Fish n Chips. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="cart.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
