@@ -6,12 +6,12 @@ const CONFIG = {
 
         // 1. If running on localhost/127.0.0.1
         if (hostname === 'localhost' || hostname === '127.0.0.1') {
-            // If we are on port 3000 (Backend serving frontend), use relative path
-            if (port === '3000') {
+            // If we are on port 10000 (Backend serving frontend), use relative path
+            if (port === '10000') {
                 return '/api';
             }
-            // If we are on Live Server (usually 5500, 8080 or file://), point to backend port 3000
-            return 'http://localhost:3000/api';
+            // If we are on Live Server (usually 5500, 8080 or file://), point to backend port 10000
+            return 'http://localhost:10000/api';
         }
 
         // 2. Production (Deployed site)
