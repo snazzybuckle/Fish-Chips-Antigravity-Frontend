@@ -4,6 +4,13 @@ const CONFIG = {
         const hostname = window.location.hostname;
         const port = window.location.port;
 
+        // 0. Check if running from file system
+        if (window.location.protocol === 'file:') {
+             alert('Warning: You are running this website from a local file. Login will NOT work due to browser security restrictions (Cookies). Please use "Open with Live Server" or run a local server.');
+             // Return fallback to avoid crash, but it won't work well
+             return 'http://localhost:10000/api'; 
+        }
+
         // 1. If running on localhost/127.0.0.1
         if (hostname === 'localhost' || hostname === '127.0.0.1') {
             // If we are on port 10000 (Backend serving frontend), use relative path
