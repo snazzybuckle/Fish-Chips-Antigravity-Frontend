@@ -3,8 +3,27 @@ const Cart = {
     API_URL: (typeof CONFIG !== 'undefined' && CONFIG.API_URL) ? `${CONFIG.API_URL}/cart` : '/api/cart',
 
     async init() {
-        // Always try to fetch remote cart. Backend handles 401 if not logged in.
+        // Load from local storage first for immediate UI feedback
+        this.loadFromCache();
+        
+        // Always try to fetch remote cart to sync/validate
         await this.fetchRemoteCart();
+    },
+
+    loadFromCache() {
+        const cached = localStorage.getItem('fishnchips_cart');
+        if (cached) {
+            try {
+                this.items = JSON.parse(cached);
+                this.updateUI(false); // false = don't save back to cache yet (optional optimization)
+            } catch (e) {
+                console.error('Failed to parse cart cache', e);
+            }
+        }
+    },
+
+    saveToCache() {
+        localStorage.setItem('fishnchips_cart', JSON.stringify(this.items));
     },
 
     async fetchRemoteCart() {
@@ -20,6 +39,8 @@ const Cart = {
                 // Not logged in or session expired
                 this.items = [];
                 this.updateUI();
+                // Clear cache if we get a 401 to ensure privacy/correctness
+                localStorage.removeItem('fishnchips_cart');
             }
         } catch (err) {
             console.error('Failed to fetch cart:', err);
@@ -107,11 +128,11 @@ const Cart = {
         return this.items.reduce((count, item) => count + item.quantity, 0);
     },
 
-    updateUI() {
+    updateUI(save = true) {
         const badges = document.querySelectorAll('.cart-count');
         badges.forEach(badge => {
             badge.textContent = this.getCount();
-            badge.style.display = this.getCount() > 0 ? 'flex' : 'none';
+            badge.style.display = 'flex'; // Always visible as requested
         });
 
         const cartItemsContainer = document.getElementById('cartItems');
@@ -143,6 +164,11 @@ const Cart = {
             
             cartTotalElement.textContent = `£${this.getTotal().toFixed(2)}`;
         }
+        
+        // Save state
+        if (save) {
+            this.saveToCache();
+        }
     },
 
     showNotification(message) {
@@ -173,9 +199,10 @@ const Cart = {
             toast.classList.remove('show');
             setTimeout(() => {
                 toast.remove();
-                location.href = 'login.html';
+                // User requested to stop auto-redirect
+                // location.href = 'login.html'; 
             }, 300);
-        }, 1500);
+        }, 3000); // Increased duration slightly so they can read it
     }
 };
 

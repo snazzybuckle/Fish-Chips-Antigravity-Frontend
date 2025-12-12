@@ -87,31 +87,65 @@ const Auth = {
         this.user = null;
         localStorage.removeItem('fishnchips_username');
         localStorage.removeItem('fishnchips_token');
+        localStorage.removeItem('fishnchips_cart');
         this.updateNav(); // Update UI before redirect
         location.href = 'login.html';
     },
 
+    toggleDropdown(e) {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        const menu = document.getElementById('authDropdown');
+        if (menu) {
+            menu.classList.toggle('active');
+        }
+    },
+
     updateNav() {
-        const link = document.getElementById('authLink');
-        if (!link) return;
+        // Target the container LI we created
+        const container = document.getElementById('authItem');
+        if (!container) return;
         
-        // Fallback to localStorage for immediate render, validated by checkAuth async
         const username = localStorage.getItem('fishnchips_username');
         
         if (username) {
-            link.textContent = `Logout (${username})`;
-            link.href = '#';
-            link.onclick = (e) => {
-                e.preventDefault();
-                this.logout();
-            };
+            // Logged In - Render Dropdown Structure
+            container.innerHTML = `
+                <div class="auth-dropdown-container" onclick="Auth.toggleDropdown(event)">
+                    <img src="assets/imgs/default-user.svg" alt="Profile" class="nav-profile-pic logged-in">
+                    
+                    <div class="dropdown-menu" id="authDropdown">
+                        <div class="dropdown-header">
+                            <span class="dropdown-user-name">${username}</span>
+                            <span class="dropdown-user-handle">Foodie Member</span>
+                        </div>
+                        <a href="#" class="dropdown-item"><i class="fas fa-user"></i> Account</a>
+                        <a href="#" class="dropdown-item"><i class="fas fa-credit-card"></i> Payment</a>
+                        <a href="#" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item text-danger" onclick="Auth.logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            `;
         } else {
-            link.textContent = 'Login';
-            link.href = 'login.html';
-            link.onclick = null;
+            // Logged Out - Standard Link
+            container.innerHTML = `<a href="login.html" id="authLink" class="nav-login-btn">Login</a>`;
         }
     }
 };
+
+// Global click listener to close dropdown
+document.addEventListener('click', (e) => {
+    const menu = document.getElementById('authDropdown');
+    const container = document.querySelector('.auth-dropdown-container');
+    
+    // If click is outside the container, remove active class
+    if (menu && container && !container.contains(e.target)) {
+        menu.classList.remove('active');
+    }
+});
 
 // Form listeners
 document.addEventListener('DOMContentLoaded', async () => {

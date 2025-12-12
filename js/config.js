@@ -18,7 +18,8 @@ const CONFIG = {
                 return '/api';
             }
             // If we are on Live Server (usually 5500, 8080 or file://), point to backend port 10000
-            return 'http://localhost:10000/api';
+            // Dynamic hostname usage is critical for Cookies to work if you are on 127.0.0.1 vs localhost
+            return `http://${hostname}:10000/api`;
         }
 
         // 2. Production (Deployed site)

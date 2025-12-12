@@ -20,7 +20,7 @@
 <body>
 
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar animate-in-down">
         <div class="container nav-container">
             <a href="#" class="logo">Fish <span class="text-gold">n</span> Chips</a>
             <div class="nav-toggle" id="navToggle">
@@ -30,12 +30,16 @@
                 <li><a href="index.html#home" class="nav-link">Home</a></li>
                 <li><a href="index.html#menu" class="nav-link">Menu</a></li>
                 <li><a href="about.html" class="nav-link">Our Story</a></li>
-                <li><a href="login.html" id="authLink" class="nav-link">Login</a></li>
                 <li><a href="contact.html" class="nav-link">Contact</a></li>
                 <li class="cart-btn-wrapper" id="cartBtn">
-                    <i class="fas fa-shopping-basket"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" width="24" height="24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                    </svg>
                     <span class="cart-count">0</span>
                 </li>
+                <li id="authItem"><a href="login.html" id="authLink" class="nav-login-btn">Login</a></li>
             </ul>
         </div>
     </nav>
@@ -66,11 +70,13 @@
             <img src="assets/imgs/hero.png" alt="Delicious Fish and Chips">
             <div class="overlay"></div>
         </div>
-        <div class="container hero-content fade-in-up">
-            <h1 class="hero-title">The Catch of the <br><span class="text-gold">Day</span></h1>
-            <p class="hero-subtitle">Experience the finest British tradition with a modern twist. Fresh, sustainable,
+        <div class="container hero-content">
+            <h1 class="hero-title animate-in animate-delay-1">The Catch of the <br><span class="text-gold">Day</span>
+            </h1>
+            <p class="hero-subtitle animate-in animate-delay-2">Experience the finest British tradition with a modern
+                twist. Fresh, sustainable,
                 and perfectly golden.</p>
-            <div class="hero-btns">
+            <div class="hero-btns animate-in animate-delay-3">
                 <a href="#menu" class="btn btn-primary">View Menu</a>
                 <a href="#contact" class="btn btn-outline">Find Us</a>
             </div>
