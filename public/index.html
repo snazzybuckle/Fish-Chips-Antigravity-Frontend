@@ -1,8 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- TEST123456789--><!-- TEST123456789--><!-- TEST123456789--><!-- TEST123456789--><!-- TEST123456789--><!-- TEST123456789--><!-- TEST123456789-->
+
 
 <head>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyCMR_WAF-C54lN-bnp1VCbs-D9TEEsEnDk",
+            authDomain: "test-9f3d9.firebaseapp.com",
+            projectId: "test-9f3d9",
+            storageBucket: "test-9f3d9.firebasestorage.app",
+            messagingSenderId: "426597718014",
+            appId: "1:426597718014:web:c66897f78848760f9e12af",
+            measurementId: "G-VXQVCQPE20"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fish n Chips | Modern Coastal Dining</title>
