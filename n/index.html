@@ -1,89 +1,271 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+<html lang="en">
+<!-- TEST123456789--><!-- TEST123456789--><!-- TEST123456789--><!-- TEST123456789--><!-- TEST123456789--><!-- TEST123456789--><!-- TEST123456789-->
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/12.6.0/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/12.6.0/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/12.6.0/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/12.6.0/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/12.6.0/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/12.6.0/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/12.6.0/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/12.6.0/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/12.6.0/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/12.6.0/firebase-performance-compat.js"></script>
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fish n Chips | Modern Coastal Dining</title>
+    <meta name="description"
+        content="Premium Fish and Chips in a modern chic setting. Freshly caught, perfectly battered.">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
 
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar animate-in-down">
+        <div class="container nav-container">
+            <a href="#" class="logo">Fish <span class="text-gold">n</span> Chips</a>
+            <div class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html#home" class="nav-link">Home</a></li>
+                <li><a href="index.html#menu" class="nav-link">Menu</a></li>
+                <li><a href="about.html" class="nav-link">Our Story</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li class="cart-btn-wrapper" id="cartBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" width="24" height="24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                    </svg>
+                    <span class="cart-count">0</span>
+                </li>
+                <li id="authItem"><a href="login.html" id="authLink" class="nav-login-btn">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-header">
+            <h3>Your Basket</h3>
+            <div class="cart-close" id="cartClose">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+        <div class="cart-body" id="cartItems">
+            <!-- Items will be populated by JS -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">£0.00</span>
+            </div>
+            <a href="checkout.html" class="btn btn-primary" style="width: 100%; text-align: center;">Checkout</a>
+        </div>
     </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadEl = document.querySelector('#load');
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
-        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-bg">
+            <img src="assets/imgs/hero.png" alt="Delicious Fish and Chips">
+            <div class="overlay"></div>
+        </div>
+        <div class="container hero-content">
+            <h1 class="hero-title animate-in animate-delay-1">The Catch of the <br><span class="text-gold">Day</span>
+            </h1>
+            <p class="hero-subtitle animate-in animate-delay-2">Experience the finest British tradition with a modern
+                twist. Fresh, sustainable,
+                and perfectly golden.</p>
+            <div class="hero-btns animate-in animate-delay-3">
+                <a href="#menu" class="btn btn-primary">View Menu</a>
+                <a href="#contact" class="btn btn-outline">Find Us</a>
+            </div>
+        </div>
+    </section>
 
-        try {
-          let app = firebase.app();
-          let features = [
-            'auth', 
-            'database', 
-            'firestore',
-            'functions',
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
-        }
-      });
-    </script>
-  </body>
+    <!-- Menu Section -->
+    <section id="menu" class="section-padding menu-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 class="section-title">Curated <span class="text-gold">Menu</span></h2>
+                <p class="section-subtitle">Hand-picked favorites, prepared with passion.</p>
+            </div>
+
+            <div class="menu-grid">
+                <!-- Item 1 -->
+                <div class="menu-card">
+                    <div class="menu-img">
+                        <img src="assets/imgs/cod.png" alt="Signature Cod">
+                    </div>
+                    <div class="menu-info">
+                        <div class="menu-header">
+                            <h3>Signature Cod</h3>
+                            <span class="price">£12.50</span>
+                        </div>
+                        <p class="menu-desc">Line-caught Atlantic cod, battered in our secret golden recipe. Served with
+                            tartare sauce.</p>
+                        <button class="btn btn-outline"
+                            style="margin-top: 1rem; padding: 0.5rem 1.5rem; font-size: 0.8rem;"
+                            onclick="Cart.add({id: 'cod', name: 'Signature Cod', price: 12.50})">Add to Basket</button>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="menu-card">
+                    <div class="menu-img">
+                        <img src="assets/imgs/chips.png" alt="Triple Cooked Chips">
+                    </div>
+                    <div class="menu-info">
+                        <div class="menu-header">
+                            <h3>Triple Cooked Chips</h3>
+                            <span class="price">£4.50</span>
+                        </div>
+                        <p class="menu-desc">Thick-cut Maris Piper potatoes, triple cooked for the ultimate crunch and
+                            fluffy center.</p>
+                        <button class="btn btn-outline"
+                            style="margin-top: 1rem; padding: 0.5rem 1.5rem; font-size: 0.8rem;"
+                            onclick="Cart.add({id: 'chips', name: 'Triple Cooked Chips', price: 4.50})">Add to
+                            Basket</button>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="menu-card">
+                    <div class="menu-img">
+                        <img src="assets/imgs/haddock.png" alt="Haddock & Peas">
+                    </div>
+                    <div class="menu-info">
+                        <div class="menu-header">
+                            <h3>Haddock & Peas</h3>
+                            <span class="price">£13.00</span>
+                        </div>
+                        <p class="menu-desc">Fresh haddock fillet served with our house-made minted mushy peas.</p>
+                        <button class="btn btn-outline"
+                            style="margin-top: 1rem; padding: 0.5rem 1.5rem; font-size: 0.8rem;"
+                            onclick="Cart.add({id: 'haddock', name: 'Haddock & Peas', price: 13.00})">Add to
+                            Basket</button>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="menu-card">
+                    <div class="menu-img">
+                        <img src="assets/imgs/sausage.png" alt="Gourmet Sausage">
+                    </div>
+                    <div class="menu-info">
+                        <div class="menu-header">
+                            <h3>Battered Sausage</h3>
+                            <span class="price">£6.50</span>
+                        </div>
+                        <p class="menu-desc">Gourmet pork sausage in our signature golden batter. Served with mustard
+                            dip.</p>
+                        <button class="btn btn-outline"
+                            style="margin-top: 1rem; padding: 0.5rem 1.5rem; font-size: 0.8rem;"
+                            onclick="Cart.add({id: 'sausage', name: 'Battered Sausage', price: 6.50})">Add to
+                            Basket</button>
+                    </div>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="menu-card">
+                    <div class="menu-img">
+                        <img src="assets/imgs/calamari.png" alt="Salt & Pepper Calamari">
+                    </div>
+                    <div class="menu-info">
+                        <div class="menu-header">
+                            <h3>S&P Calamari</h3>
+                            <span class="price">£8.00</span>
+                        </div>
+                        <p class="menu-desc">Crispy squid rings tossed in sea salt, cracked black pepper, and fresh
+                            chili.</p>
+                        <button class="btn btn-outline"
+                            style="margin-top: 1rem; padding: 0.5rem 1.5rem; font-size: 0.8rem;"
+                            onclick="Cart.add({id: 'calamari', name: 'S&P Calamari', price: 8.00})">Add to
+                            Basket</button>
+                    </div>
+                </div>
+
+                <!-- Item 6 -->
+                <div class="menu-card">
+                    <div class="menu-img">
+                        <img src="assets/imgs/halloumi.png" alt="Halloumi Fries">
+                    </div>
+                    <div class="menu-info">
+                        <div class="menu-header">
+                            <h3>Halloumi Fries</h3>
+                            <span class="price">£7.50</span>
+                        </div>
+                        <p class="menu-desc">Golden fried halloumi sticks served with a sweet chili jam and fresh mint.
+                        </p>
+                        <button class="btn btn-outline"
+                            style="margin-top: 1rem; padding: 0.5rem 1.5rem; font-size: 0.8rem;"
+                            onclick="Cart.add({id: 'halloumi', name: 'Halloumi Fries', price: 7.50})">Add to
+                            Basket</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center" style="margin-top: 3rem;">
+                <a href="#" class="btn btn-outline">View Full Menu</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About/Vibe Section -->
+    <section id="about" class="section-padding about-section">
+        <div class="container about-grid">
+            <div class="about-text">
+                <h2>Modern <span class="text-gold">Tradition</span></h2>
+                <p>We believe in elevating the humble fish and chip shop experience. By combining locally sourced,
+                    sustainable seafood with a chic, contemporary atmosphere, we've created a space where tradition
+                    meets modern dining.</p>
+                <ul class="features-list">
+                    <li><i class="fas fa-check text-gold"></i> Sustainable Fishing</li>
+                    <li><i class="fas fa-check text-gold"></i> Local Produce</li>
+                    <li><i class="fas fa-check text-gold"></i> Chef-Driven Recipes</li>
+                </ul>
+            </div>
+            <div class="about-visual">
+                <div class="visual-box">
+                    <i class="fas fa-anchor fa-5x text-gold" style="opacity: 0.2;"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <h3>Fish <span class="text-gold">n</span> Chips</h3>
+                <p>Redefining the classic.</p>
+                <div class="socials">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-info">
+                <h4>Visit Us</h4>
+                <p>123 Seaside Avenue</p>
+                <p>Brighton, BN1 1AA</p>
+            </div>
+            <div class="footer-hours">
+                <h4>Opening Hours</h4>
+                <p>Mon - Sun: 11am - 10pm</p>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p>&copy; 2025 Fish n Chips. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/script.js"></script>
+
+</body>
+
 </html>
