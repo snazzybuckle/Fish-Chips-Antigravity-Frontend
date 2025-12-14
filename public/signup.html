@@ -16,6 +16,28 @@
 </head>
 
 <body>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+        import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCMR_WAF-C54lN-bnp1VCbs-D9TEEsEnDk",
+            authDomain: "test-9f3d9.firebaseapp.com",
+            projectId: "test-9f3d9",
+            storageBucket: "test-9f3d9.firebasestorage.app",
+            messagingSenderId: "426597718014",
+            appId: "1:426597718014:web:c66897f78848760f9e12af",
+            measurementId: "G-VXQVCQPE20"
+        };
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+
+        // Expose logEvent globally
+        window.logAnalyticsEvent = (eventName, eventParams) => {
+            logEvent(analytics, eventName, eventParams);
+            console.log(`Analytics Event: ${eventName}`, eventParams);
+        };
+    </script>
 
     <!-- Navigation -->
     <nav class="navbar">

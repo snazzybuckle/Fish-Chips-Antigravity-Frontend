@@ -69,6 +69,10 @@ const Auth = {
             // Token is in HttpOnly cookie now
             localStorage.setItem('fishnchips_username', data.username);
             
+            if (window.logAnalyticsEvent) {
+                window.logAnalyticsEvent('login', { method: 'email' });
+            }
+
             location.href = 'index.html';
             return true;
         } catch (error) {
@@ -218,6 +222,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             try {
                 const success = await Auth.register(username, password);
                 if (success) {
+                    if (window.logAnalyticsEvent) {
+                        window.logAnalyticsEvent('sign_up', { method: 'email' });
+                    }
                     location.href = 'signup-success.html';
                 }
             } catch (err) {
